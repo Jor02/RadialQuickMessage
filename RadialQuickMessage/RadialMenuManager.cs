@@ -42,6 +42,7 @@ namespace RadialQuickMessage
         /// <param name="content"></param>
         public void Open(RadialContent[] content)
         {
+            menuStack.Clear();
             GenerateMenu(content, false);
         }
 
@@ -260,9 +261,7 @@ namespace RadialQuickMessage
                 return;
 
             // Get local mouse position
-            //RectTransformUtility.ScreenPointToLocalPointInRectangle(transform as RectTransform, Input.mousePosition, Camera.main, out Vector2 localPos);
             Vector2 localPos = SemiFunc.UIMousePosToUIPos() - (Vector2)transform.position;
-
 
             // Calculate magnitute and perform distance check
             float distance = localPos.magnitude;
