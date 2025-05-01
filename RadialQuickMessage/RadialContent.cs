@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using UnityEngine;
-
-namespace RadialQuickMessage
+﻿namespace RadialQuickMessage
 {
     /// <summary>
     /// Represents a single item in the radial menu, including potential children for submenus.

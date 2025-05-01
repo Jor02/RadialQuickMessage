@@ -3,7 +3,6 @@ using BepInEx.Logging;
 using HarmonyLib;
 using TMPro;
 using UnityEngine;
-using UnityEngine.UI;
 
 namespace RadialQuickMessage;
 
