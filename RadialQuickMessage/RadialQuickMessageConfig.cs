@@ -14,7 +14,7 @@ namespace RadialQuickMessage
         // Plugin related
         private readonly RadialQuickMessage plugin;
         private readonly ManualLogSource logger;
-        
+
         // Json
         private FileSystemWatcher? contentWatcher;
         private static readonly JsonSerializerSettings serializerSettings = new JsonSerializerSettings { NullValueHandling = NullValueHandling.Ignore };
@@ -22,7 +22,7 @@ namespace RadialQuickMessage
 
         // Radial key
         public ConfigEntry<KeyCode> OpenMenuKey { get; private set; } = null!;
-        
+
         // Color options
         public ConfigEntry<Color> MenuColor { get; private set; } = null!;
         public ConfigEntry<Color> HoverColor { get; private set; } = null!;
@@ -133,26 +133,111 @@ namespace RadialQuickMessage
         {
             new RadialContent
             {
-                Label = "Greetings",
+                Label = "HI..",
                 Children = new[]
                 {
-                    new RadialContent { Label = "Hello", Message = "Hello!" }
+                    new RadialContent { Message = "Hi" },
+                    new RadialContent { Message = "Hello" },
+                    new RadialContent { Message = "Heya" },
+                    new RadialContent { Message = "Greetings" }
                 }
             },
             new RadialContent
             {
-                Label = "Reactions",
+                Label = "Reactions..",
                 Children = new[]
                 {
-                    new RadialContent { Label = "LOL", Message = "LOL" },
+                    new RadialContent { Label = "Thanks", Message = "Thanks!" },
+                    new RadialContent { Message = "LOL" },
                     new RadialContent { Label = "Haha", Message = "Haha!" },
                     new RadialContent { Label = "Wow", Message = "Wow!" },
-                    new RadialContent { Label = "LMAO", Message = "LMAO!" }
+                    new RadialContent { Message = "LMAO" }
                 }
             },
             new RadialContent
             {
-                Label = "Farewells",
+                Label = "I spot..",
+                Message = "I spot {$}.",
+                Children = new[]
+                {
+                    new RadialContent
+                    {
+                        Label = "Valuable..",
+                        Message = "{$} valuable",
+                        Children = new[]
+                        {
+                            new RadialContent { Message = "Heavy" },
+                            new RadialContent { Message = "Expensive" },
+                            new RadialContent { Message = "Small" },
+                            new RadialContent { Message = "Big" }
+                        }
+                    },
+                    new RadialContent
+                    {
+                        Label = "Common..",
+                        Children = new[]
+                        {
+                            new RadialContent { Message = "Animal" },
+                            new RadialContent { Message = "Duck" },
+                            new RadialContent { Message = "Gnome" },
+                            new RadialContent { Message = "Eye" },
+                            new RadialContent { Message = "Skull" },
+                            new RadialContent { Message = "Head" }
+                        }
+                    },
+                    new RadialContent
+                    {
+                        Label = "Human-like..",
+                        Children = new[]
+                        {
+                            new RadialContent { Message = "Baby" },
+                            new RadialContent { Message = "Big guy" },
+                            new RadialContent { Message = "Stick lady" },
+                            new RadialContent { Label = "Blind", Message = "Blind guy" },
+                            new RadialContent { Message = "Upscream" }
+                        }
+                    },
+                    new RadialContent
+                    {
+                        Label = "Supernatural..",
+                        Children = new[]
+                        {
+                            new RadialContent { Message = "Shadow Child" },
+                            new RadialContent { Message = "Hugger" },
+                            new RadialContent { Message = "Spewer" },
+                            new RadialContent { Label = "Invisible", Message = "Invisible dude" },
+                            new RadialContent { Message = "Laser guy" },
+                            new RadialContent { Message = "Alien" }
+                        }
+                    },
+                    new RadialContent
+                    {
+                        Label = "Other..",
+                        Children = new[]
+                        {
+                            new RadialContent { Message = "Frog" },
+                            new RadialContent { Label = "Blowey", Message = "Blowey guy" }
+                        }
+                    }
+                }
+            },
+            new RadialContent { Message = "MONSTER" },
+            new RadialContent { Message = "RUN" },
+            new RadialContent
+            {
+                Label = "HELP..",
+                Message = "HELP {$}",
+                Children = new[]
+                {
+                    new RadialContent { Label = "." },
+                    new RadialContent { Label = "carry", Message = "carry please" },
+                    new RadialContent { Message = "kill" },
+                    new RadialContent { Message = "reach" }
+                }
+            },
+            new RadialContent
+            {
+                Label = "Bye..",
                 Children = new[]
                 {
                     new RadialContent { Label = "Goodbye", Message = "Goodbye!" },
