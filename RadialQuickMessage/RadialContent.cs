@@ -7,7 +7,7 @@
     public class RadialContent
     {
         // Label that shows in the menu
-        public string Label = string.Empty;
+        public string? Label;
 
         // Target chat message
         public string? Message;

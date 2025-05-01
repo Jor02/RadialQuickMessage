@@ -12,7 +12,7 @@ namespace RadialQuickMessage
         public string? message;
 
         // Menu content that shows when you click this button
-        public RadialContent[] radialContent;
+        public RadialContent[]? radialContent;
 
         // Reference to the image component of the slice (used for highlight color)
         public Image image;

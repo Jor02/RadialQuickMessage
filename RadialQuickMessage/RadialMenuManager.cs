@@ -35,7 +35,7 @@ namespace RadialQuickMessage
         // Radial Navigation
         RadialContent[] currentContent;
         private Stack<RadialContent[]> menuStack = new Stack<RadialContent[]>();
-        private Stack<string?> selectedMessageStack = new Stack<string?>();
+        private List<string> selectedMessageStack = new List<string>();
 
         /// <summary>
         /// Opens the radial menu with the provided menu content
@@ -203,7 +203,7 @@ namespace RadialQuickMessage
 
             RadialButton button = slice.GetComponent<RadialButton>();
             button.image = image;
-            button.label = content.Label;
+            button.label = content.Label ?? content.Message ?? "Error";
             button.message = content.Message;
             button.radialContent = content.Children;
 
@@ -222,7 +222,7 @@ namespace RadialQuickMessage
                 Vector2 endPoint = center + direction * radius;
 
                 TextMeshProUGUI labelInstance = Instantiate(ReferenceLabel, slice.transform);
-                labelInstance.text = content.Label;
+                labelInstance.text = (content.Label ?? content.Message ?? "Error").ToUpper();
                 labelInstance.enabled = true;
                 labelInstance.alignment = TextAlignmentOptions.Center;
                 labelInstance.maskable = false;
@@ -313,7 +313,7 @@ namespace RadialQuickMessage
                     if (clickedButton.radialContent != null && clickedButton.radialContent.Length > 0)
                     {
                         // Push current label/message to stack if needed
-                        selectedMessageStack.Push(clickedButton.message);
+                        selectedMessageStack.Add(clickedButton.message);
 
                         // Load child menu
                         GenerateMenu(clickedButton.radialContent);
@@ -323,10 +323,10 @@ namespace RadialQuickMessage
                         // Final message selected, now build it with full template stack
                         string? finalMessage = clickedButton.message;
 
-                        // Apply message templates from stack recursively
-                        while (selectedMessageStack.Count > 0)
+                        // Apply message templates from list in reverse order (like a stack)
+                        for (int i = selectedMessageStack.Count - 1; i >= 0; i--)
                         {
-                            string template = selectedMessageStack.Pop();
+                            string template = selectedMessageStack[i];
 
                             if (!string.IsNullOrEmpty(template) && template.Contains("{$}"))
                                 finalMessage = template.Replace("{$}", finalMessage);
@@ -348,7 +348,7 @@ namespace RadialQuickMessage
             {
                 RadialContent[] previousMenu = menuStack.Pop();
                 if (selectedMessageStack.Count > 0)
-                    selectedMessageStack.Pop();
+                    selectedMessageStack.RemoveAt(selectedMessageStack.Count - 1);
                 GenerateMenu(previousMenu, false);
             }
         }
