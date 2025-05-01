@@ -7,6 +7,7 @@ using UnityEngine;
 namespace RadialQuickMessage;
 
 [BepInPlugin("Jor02.RadialQuickMessage", "RadialQuickMessage", "1.0")]
+[BepInProcess("REPO.exe")]
 public class RadialQuickMessage : BaseUnityPlugin
 {
     // Plugin related stuff
