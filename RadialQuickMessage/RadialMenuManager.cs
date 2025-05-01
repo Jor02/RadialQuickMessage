@@ -172,7 +172,7 @@ namespace RadialQuickMessage
 
                 RectTransform rectTransform = separator.GetComponent<RectTransform>();
                 rectTransform.sizeDelta = new Vector2(RadialSize, RadialSize);
-                rectTransform.localRotation = Quaternion.Euler(0, 0, -360f / numberOfSlices);
+                rectTransform.localRotation = Quaternion.Euler(0, 0, (-360f / numberOfSlices) + (numberOfSlices == 2 && i == 0 ? 90 : 0));
 
                 Image image = separator.GetComponent<Image>();
                 image.sprite = SeparatorSprite;
@@ -215,7 +215,7 @@ namespace RadialQuickMessage
                 float radius = RadialSize * 0.35f;
                 float sliceAngle = -360f / totalSlices;
 
-                float angle = (index + 0.5f) * sliceAngle + 90;
+                float angle = (index + 0.5f) * sliceAngle + (totalSlices == 2 ? -180 : 90);
                 float rad = angle * Mathf.Deg2Rad;
 
                 Vector2 direction = new Vector2(Mathf.Cos(rad), Mathf.Sin(rad));
@@ -282,7 +282,7 @@ namespace RadialQuickMessage
             }
             else if (outerButtons.Length > 0) // If there are radial buttons
             {
-                float angle = Mathf.Atan2(-localPos.y, localPos.x) * Mathf.Rad2Deg + 90;
+                float angle = Mathf.Atan2(-localPos.y, localPos.x) * Mathf.Rad2Deg + (outerButtons.Length == 2 ? 180 : 90);
                 angle = (angle + 360f) % 360f;  // Normalize the angle
 
                 // Determine which slice the pointer is hovering over
