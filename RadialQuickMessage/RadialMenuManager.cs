@@ -313,6 +313,10 @@ namespace RadialQuickMessage
                     // Get corresponding RadialContent
                     if (clickedButton.radialContent != null && clickedButton.radialContent.Length > 0)
                     {
+#if DEBUG
+                        RadialQuickMessage.Logger.LogInfo($"Clicked: \"{clickedButton.message ?? clickedButton.label}\"");
+#endif
+
                         // Push current label/message to stack if needed
                         selectedMessageStack.Add(clickedButton.message);
 
@@ -334,6 +338,10 @@ namespace RadialQuickMessage
                             else if (!string.IsNullOrEmpty(template))
                                 finalMessage = template + finalMessage; // fallback if no placeholder
                         }
+
+#if DEBUG
+                        RadialQuickMessage.Logger.LogInfo($"Final message: \"{finalMessage}\"");
+#endif
 
                         // Trigger message clicked event
                         if (OnMessageClicked != null)
