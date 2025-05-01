@@ -78,7 +78,7 @@ namespace RadialQuickMessage
                 catch (Exception ex)
                 {
                     logger.LogError($"Failed to load radial content: {ex.Message}");
-                    Content = GetDefaultRadialContent();
+                    Content = GetSyntaxErrorRadialContent(ex.Message);
                 }
             }
         }
@@ -128,6 +128,22 @@ namespace RadialQuickMessage
                 }
             });
         }
+
+        private RadialContent[] GetSyntaxErrorRadialContent(string error) => new[]
+        {
+            new RadialContent
+            {
+                Message = "Syntax Error"
+            },
+            new RadialContent
+            {
+                Message = "Full Error..",
+                Children = new[]
+                {
+                    new RadialContent { Message = error }
+                }
+            }
+        };
 
         private RadialContent[] GetDefaultRadialContent() => new[]
         {
