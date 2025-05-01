@@ -227,6 +227,7 @@ namespace RadialQuickMessage
                 labelInstance.alignment = TextAlignmentOptions.Center;
                 labelInstance.maskable = false;
                 labelInstance.margin = Vector4.zero;
+                labelInstance.lineSpacing = -50;
 
                 RectTransform labelRect = labelInstance.GetComponent<RectTransform>();
 
