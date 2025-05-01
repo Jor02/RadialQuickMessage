@@ -35,7 +35,7 @@ namespace RadialQuickMessage
         // Radial Navigation
         RadialContent[] currentContent;
         private Stack<RadialContent[]> menuStack = new Stack<RadialContent[]>();
-        private List<string> selectedMessageStack = new List<string>();
+        private List<string?> selectedMessageStack = new List<string?>();
 
         /// <summary>
         /// Opens the radial menu with the provided menu content
