@@ -9,7 +9,7 @@ namespace RadialQuickMessage
         public string label;
 
         // Target chat message
-        public string message;
+        public string? message;
 
         // Menu content that shows when you click this button
         public RadialContent[] radialContent;

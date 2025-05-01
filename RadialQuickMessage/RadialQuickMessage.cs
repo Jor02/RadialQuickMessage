@@ -124,9 +124,9 @@ public class RadialQuickMessage : BaseUnityPlugin
         radialMenu.ReferenceLabel = labelComponent;
     }
 
-    void RelayMessage(string message)
+    void RelayMessage(string? message)
     {
-        ChatManager.instance.ForceSendMessage(message);
+        ChatManager.instance.ForceSendMessage(message ?? "Error");
     }
 
     private void OnDestroy()

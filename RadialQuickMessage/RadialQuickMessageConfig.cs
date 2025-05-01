@@ -49,7 +49,7 @@ namespace RadialQuickMessage
         private void BindConfig()
         {
             // Setup config bindings
-            OpenMenuKey = plugin.Config.Bind("Radial Menu", "Open Menu Key", KeyCode.K, "Key used to open the radial menu.");
+            OpenMenuKey = plugin.Config.Bind("Radial Menu", "Open Menu Key", KeyCode.F, "Key used to open the radial menu.");
             MenuColor = plugin.Config.Bind("Radial Menu", "Menu Color", new Color(0, 0, 0, 0.6f), "Background color of the radial menu.");
             HoverColor = plugin.Config.Bind("Radial Menu", "Hover Color", new Color(0.25f, 0.55f, 1f, 1f), "Hover color of the radial menu.");
 

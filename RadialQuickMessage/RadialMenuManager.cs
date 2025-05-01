@@ -10,7 +10,7 @@ namespace RadialQuickMessage
     class RadialMenuManager : MonoBehaviour
     {
         // Events
-        public UnityEvent<string> OnMessageClicked = new UnityEvent<string>();
+        public UnityEvent<string?> OnMessageClicked = new UnityEvent<string?>();
 
         // Configuration
         public float RadialSize = 250;
@@ -35,6 +35,7 @@ namespace RadialQuickMessage
         // Radial Navigation
         RadialContent[] currentContent;
         private Stack<RadialContent[]> menuStack = new Stack<RadialContent[]>();
+        private Stack<string?> selectedMessageStack = new Stack<string?>();
 
         /// <summary>
         /// Opens the radial menu with the provided menu content
@@ -43,6 +44,7 @@ namespace RadialQuickMessage
         public void Open(RadialContent[] content)
         {
             menuStack.Clear();
+            selectedMessageStack.Clear();
             GenerateMenu(content, false);
         }
 
@@ -140,7 +142,7 @@ namespace RadialQuickMessage
 
             if (numberOfSlices <= 0)
             {
-                Debug.LogWarning("Number of slices must be greater than 0.");
+                RadialQuickMessage.Logger.LogWarning("Number of slices must be greater than 0.");
                 return;
             }
 
@@ -202,6 +204,7 @@ namespace RadialQuickMessage
             RadialButton button = slice.GetComponent<RadialButton>();
             button.image = image;
             button.label = content.Label;
+            button.message = content.Message;
             button.radialContent = content.Children;
 
             if (ReferenceLabel != null)
@@ -309,13 +312,31 @@ namespace RadialQuickMessage
                     // Get corresponding RadialContent
                     if (clickedButton.radialContent != null && clickedButton.radialContent.Length > 0)
                     {
-                        GenerateMenu(clickedButton.radialContent); // Load child menu
+                        // Push current label/message to stack if needed
+                        selectedMessageStack.Push(clickedButton.message);
+
+                        // Load child menu
+                        GenerateMenu(clickedButton.radialContent);
                     }
                     else
                     {
+                        // Final message selected, now build it with full template stack
+                        string? finalMessage = clickedButton.message;
+
+                        // Apply message templates from stack recursively
+                        while (selectedMessageStack.Count > 0)
+                        {
+                            string template = selectedMessageStack.Pop();
+
+                            if (!string.IsNullOrEmpty(template) && template.Contains("{$}"))
+                                finalMessage = template.Replace("{$}", finalMessage);
+                            else if (!string.IsNullOrEmpty(template))
+                                finalMessage = template + finalMessage; // fallback if no placeholder
+                        }
+
                         // Trigger message clicked event
                         if (OnMessageClicked != null)
-                            OnMessageClicked.Invoke(clickedButton.message);
+                            OnMessageClicked.Invoke(finalMessage);
                     }
                 }
             }
@@ -326,6 +347,8 @@ namespace RadialQuickMessage
             if (menuStack.Count > 0)
             {
                 RadialContent[] previousMenu = menuStack.Pop();
+                if (selectedMessageStack.Count > 0)
+                    selectedMessageStack.Pop();
                 GenerateMenu(previousMenu, false);
             }
         }
