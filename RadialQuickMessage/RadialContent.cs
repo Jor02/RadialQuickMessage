@@ -10,9 +10,9 @@
         public string Label = string.Empty;
 
         // Target chat message
-        public string Message = string.Empty;
+        public string? Message;
 
         // Menu content that shows when you click this option
-        public RadialContent[] Children = new RadialContent[0];
+        public RadialContent[]? Children;
     }
 }
