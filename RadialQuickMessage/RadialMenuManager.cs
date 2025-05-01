@@ -336,6 +336,12 @@ namespace RadialQuickMessage
             // Reset all slices to their normal color
             for (int i = 0; i < outerButtons.Length; i++)
             {
+                if (outerButtons[i] == null)
+                {
+                    Close();
+                    return false;
+                }
+
                 Image img = outerButtons[i].GetComponent<Image>();
                 img.color = MenuColor;
             }
