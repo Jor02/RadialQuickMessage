@@ -317,7 +317,7 @@ namespace RadialQuickMessage
                     {
                         // Trigger message clicked event
                         if (OnMessageClicked != null)
-                            OnMessageClicked.Invoke(clickedButton.label);
+                            OnMessageClicked.Invoke(clickedButton.message);
                     }
                 }
             }
